@@ -34,12 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($result && $result->num_rows === 1) {
                 $user = $result->fetch_assoc();
 
-                // Support both bcrypt-hashed and legacy plain-text passwords
-                $valid = str_starts_with($user['password'], '$2y$')
-                    ? password_verify($password, $user['password'])
-                    : ($password === $user['password']);
-
-                if ($valid) {
+                // Verify against bcrypt hash only
+                if (password_verify($password, $user['password'])) {
                     session_regenerate_id(true);
                     $_SESSION['admin_logged_in'] = true;
                     $_SESSION['admin_id']        = $user['id'];

@@ -116,13 +116,6 @@ function applyLang(lang) {
         const key = el.getAttribute('data-i18n');
         if (t[key] !== undefined) el.textContent = t[key];
     });
-
-    // Page title heading (uses a special key like "dashboardTitle")
-    const titleEl = document.querySelector('.page-title');
-    if (titleEl) {
-        const pageKey = titleEl.getAttribute('data-i18n');
-        if (pageKey && t[pageKey] !== undefined) titleEl.textContent = t[pageKey];
-    }
 }
 
 // ─── Dark / Light Mode ────────────────────────────────────────────

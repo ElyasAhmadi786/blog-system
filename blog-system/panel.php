@@ -7,7 +7,7 @@ use classes\StorageTypes\MySQL;
 
 $postRepository = new PostRepository(new MySQL());
 
-$page    = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$page    = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) ?: 1;
 $perPage = 10;
 $posts   = $postRepository->getAllPaginated($page, $perPage);
 

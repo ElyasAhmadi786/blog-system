@@ -37,12 +37,19 @@ function handleImageUpload(): ?string
         return null;
     }
 
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowedExtensions, true)) {
+        return null;
+    }
+
     $uploadDir = 'assets/images/';
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
 
-    $imageName = uniqid() . '_' . basename($_FILES['image']['name']);
+    $imageName = uniqid() . '.' . $ext;
     $imagePath = $uploadDir . $imageName;
 
     if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {

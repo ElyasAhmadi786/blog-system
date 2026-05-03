@@ -32,8 +32,8 @@ CREATE TABLE posts (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 -- درج کاربر ادمین
--- رمز عبور: admin123 (با bcrypt هش شده)
--- برای تولید هش جدید: password_hash('your_password', PASSWORD_DEFAULT)
+-- رمز عبور پیش‌فرض با bcrypt هش شده است - پس از نصب حتماً تغییر دهید
+-- برای تولید هش جدید: password_hash('your_new_password', PASSWORD_DEFAULT)
 INSERT INTO users (first_name, last_name, email, password)
 VALUES ('Admin', 'User', 'admin@blog.com', '$2y$10$bVcWC0SGJb9A8vKzObtgTehWjbNiQJNZLfouJA/9vnqKH9xEm3pzu');
 -- درج تنظیمات

@@ -8,7 +8,7 @@ use classes\StorageTypes\MySQL;
 
 $postRepository = new PostRepository(new MySQL());
 
-$postId = isset($_GET['id']) && is_numeric($_GET['id']) ? (int)$_GET['id'] : null;
+$postId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
 
 if (!$postId) {
     header("Location: panel.php");
@@ -50,12 +50,19 @@ function handleImageUpload(?string $currentImage): ?string
     $image = $currentImage;
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowedExtensions, true)) {
+            return $image;
+        }
+
         $uploadDir = 'assets/images/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
 
-        $imageName = uniqid() . '_' . basename($_FILES['image']['name']);
+        $imageName = uniqid() . '.' . $ext;
         $imagePath = $uploadDir . $imageName;
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {

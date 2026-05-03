@@ -72,7 +72,7 @@ $latestPosts = $postRepository->getAllPaginated(1, 7);
                 <li><a href="./contact.php">Contact us</a></li>
             </ul>
             <div class="admin-login">
-                <a href="./edit.php">Admin Panel</a>
+                <a href="./login.php">Admin Panel</a>
             </div>
             <form action="search.php" method="GET">
                 <input type="text" name="search" placeholder="Search your word" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">

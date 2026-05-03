@@ -128,6 +128,22 @@ class MySQL implements Storage
         return $this->connection->insert_id;
     }
 
+    public function countAll(string $table): int
+    {
+        $result = $this->connection->query("SELECT COUNT(*) as cnt FROM `$table`");
+        return ($result) ? (int)$result->fetch_assoc()['cnt'] : 0;
+    }
+
+    public function sumField(string $table, string $field): int
+    {
+        // Sanitise field name to only allow safe characters
+        $safeField = preg_replace('/[^a-zA-Z0-9_]/', '', $field);
+        $result    = $this->connection->query(
+            "SELECT COALESCE(SUM(`$safeField`), 0) AS total FROM `$table`"
+        );
+        return ($result) ? (int)$result->fetch_assoc()['total'] : 0;
+    }
+
     private function getParamTypes(array $data): string
     {
         $types = '';

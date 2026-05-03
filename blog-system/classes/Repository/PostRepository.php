@@ -51,6 +51,39 @@ class PostRepository extends BaseRepository
         return $post;
     }
 
+    /**
+     * Return a page of posts optionally filtered by status and/or title search.
+     * Filtering is done in PHP because the dataset is small; avoids changing the
+     * Storage contract with a complex query method.
+     */
+    public function getFiltered(?string $status, ?string $search, int $page, int $perPage): array
+    {
+        $all = $this->getAll();
+        $all = $this->applyFilters($all, $status, $search);
+        return array_slice(array_values($all), ($page - 1) * $perPage, $perPage);
+    }
+
+    public function countFiltered(?string $status, ?string $search): int
+    {
+        $all = $this->getAll();
+        return count($this->applyFilters($all, $status, $search));
+    }
+
+    private function applyFilters(array $posts, ?string $status, ?string $search): array
+    {
+        if ($status) {
+            $posts = array_filter($posts, function ($p) use ($status) {
+                return ($p['status'] ?? 'published') === $status;
+            });
+        }
+        if ($search) {
+            $posts = array_filter($posts, function ($p) use ($search) {
+                return stripos($p['title'], $search) !== false;
+            });
+        }
+        return $posts;
+    }
+
     private function processImagePaths(array $posts): array
     {
         return array_map(function($post) {

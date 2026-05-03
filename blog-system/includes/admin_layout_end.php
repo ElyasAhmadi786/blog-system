@@ -6,90 +6,110 @@
 // ─── Translations ────────────────────────────────────────────────
 const i18n = {
     en: {
-        adminPanel:     'Admin Panel',
-        dashboard:      'Dashboard',
-        dashboardTitle: 'Dashboard',
-        createPost:     'Create Post',
-        createTitle:    'Create New Post',
-        editTitle:      'Edit Post',
-        viewSite:       'View Site',
-        logout:         'Logout',
-        administrator:  'Administrator',
+        adminPanel:       'Admin Panel',
+        dashboard:        'Dashboard',
+        dashboardTitle:   'Dashboard',
+        navContent:       'Content',
+        navAdminSettings: 'Settings',
+        posts:            'Posts',
+        allPosts:         'All Posts',
+        createPost:       'Create Post',
+        createTitle:      'Create New Post',
+        editTitle:        'Edit Post',
+        settingsMenu:     'Settings',
+        generalSettings:  'General Settings',
+        myProfile:        'My Profile',
+        viewSite:         'View Site',
+        logout:           'Logout',
+        administrator:    'Administrator',
         // Table
-        id:             'ID',
-        title:          'Title',
-        category:       'Category',
-        views:          'Views',
-        date:           'Date',
-        actions:        'Actions',
-        edit:           'Edit',
-        delete:         'Delete',
+        id:               'ID',
+        thumbnail:        'Image',
+        title:            'Title',
+        category:         'Category',
+        status:           'Status',
+        views:            'Views',
+        date:             'Date',
+        actions:          'Actions',
+        edit:             'Edit',
+        delete:           'Delete',
         // Pagination
-        previous:       '← Previous',
-        next:           'Next →',
-        page:           'Page',
+        previous:         '← Previous',
+        next:             'Next →',
+        page:             'Page',
         // Form
-        postTitle:      'Post Title *',
-        postCategory:   'Category *',
-        postContent:    'Content *',
-        featuredImage:  'Featured Image',
-        createBtn:      '📝 Create Post',
-        updateBtn:      '💾 Update Post',
-        backBtn:        '← Back to Dashboard',
-        viewPostBtn:    '👁 View Post',
+        postTitle:        'Post Title *',
+        postCategory:     'Category *',
+        postStatus:       'Status',
+        postContent:      'Content *',
+        featuredImage:    'Featured Image',
+        createBtn:        '📝 Create Post',
+        updateBtn:        '💾 Update Post',
+        backBtn:          '← Back to Dashboard',
+        viewPostBtn:      '👁 View Post',
         // Messages
-        confirmDelete:  'Are you sure you want to delete this post?',
-        noPosts:        'No posts found.',
-        createFirst:    'Create your first post',
-        createNewPost:  '➕ Create New Post',
-        viewWebsite:    '👁 View Website',
+        confirmDelete:    'Are you sure you want to delete this post?',
+        noPosts:          'No posts found.',
+        createFirst:      'Create your first post',
+        createNewPost:    '➕ Create New Post',
+        viewWebsite:      '👁 View Website',
         // Categories
-        political:      'Political',
-        sport:          'Sport',
-        social:         'Social',
+        political:        'Political',
+        sport:            'Sport',
+        social:           'Social',
+        // Status
+        published:        'Published',
+        draft:            'Draft',
     },
     fa: {
-        adminPanel:     'پنل مدیریت',
-        dashboard:      'داشبورد',
-        dashboardTitle: 'داشبورد',
-        createPost:     'ایجاد پست',
-        createTitle:    'ایجاد پست جدید',
-        editTitle:      'ویرایش پست',
-        viewSite:       'مشاهده سایت',
-        logout:         'خروج',
-        administrator:  'مدیر',
-        // Table
-        id:             'شناسه',
-        title:          'عنوان',
-        category:       'دسته‌بندی',
-        views:          'بازدید',
-        date:           'تاریخ',
-        actions:        'عملیات',
-        edit:           'ویرایش',
-        delete:         'حذف',
-        // Pagination
-        previous:       '→ قبلی',
-        next:           'بعدی ←',
-        page:           'صفحه',
-        // Form
-        postTitle:      'عنوان پست *',
-        postCategory:   'دسته‌بندی *',
-        postContent:    'محتوا *',
-        featuredImage:  'تصویر شاخص',
-        createBtn:      '📝 ایجاد پست',
-        updateBtn:      '💾 بروزرسانی پست',
-        backBtn:        'بازگشت به داشبورد →',
-        viewPostBtn:    'مشاهده پست 👁',
-        // Messages
-        confirmDelete:  'آیا مطمئنید که می‌خواهید این پست را حذف کنید؟',
-        noPosts:        'هیچ پستی یافت نشد.',
-        createFirst:    'اولین پست خود را ایجاد کنید',
-        createNewPost:  '➕ ایجاد پست جدید',
-        viewWebsite:    '👁 مشاهده وبسایت',
-        // Categories
-        political:      'سیاسی',
-        sport:          'ورزشی',
-        social:         'اجتماعی',
+        adminPanel:       'پنل مدیریت',
+        dashboard:        'داشبورد',
+        dashboardTitle:   'داشبورد',
+        navContent:       'محتوا',
+        navAdminSettings: 'تنظیمات',
+        posts:            'پست‌ها',
+        allPosts:         'همه پست‌ها',
+        createPost:       'ایجاد پست',
+        createTitle:      'ایجاد پست جدید',
+        editTitle:        'ویرایش پست',
+        settingsMenu:     'تنظیمات',
+        generalSettings:  'تنظیمات کلی',
+        myProfile:        'پروفایل من',
+        viewSite:         'مشاهده سایت',
+        logout:           'خروج',
+        administrator:    'مدیر',
+        id:               'شناسه',
+        thumbnail:        'تصویر',
+        title:            'عنوان',
+        category:         'دسته‌بندی',
+        status:           'وضعیت',
+        views:            'بازدید',
+        date:             'تاریخ',
+        actions:          'عملیات',
+        edit:             'ویرایش',
+        delete:           'حذف',
+        previous:         '→ قبلی',
+        next:             'بعدی ←',
+        page:             'صفحه',
+        postTitle:        'عنوان پست *',
+        postCategory:     'دسته‌بندی *',
+        postStatus:       'وضعیت',
+        postContent:      'محتوا *',
+        featuredImage:    'تصویر شاخص',
+        createBtn:        '📝 ایجاد پست',
+        updateBtn:        '💾 بروزرسانی پست',
+        backBtn:          'بازگشت به داشبورد →',
+        viewPostBtn:      'مشاهده پست 👁',
+        confirmDelete:    'آیا مطمئنید که می‌خواهید این پست را حذف کنید؟',
+        noPosts:          'هیچ پستی یافت نشد.',
+        createFirst:      'اولین پست خود را ایجاد کنید',
+        createNewPost:    '➕ ایجاد پست جدید',
+        viewWebsite:      '👁 مشاهده وبسایت',
+        political:        'سیاسی',
+        sport:            'ورزشی',
+        social:           'اجتماعی',
+        published:        'منتشر شده',
+        draft:            'پیش‌نویس',
     }
 };
 
@@ -103,15 +123,12 @@ function applyLang(lang) {
     const t = i18n[lang] || i18n.en;
     const isRtl = lang === 'fa';
 
-    // Direction & lang attribute
     document.documentElement.lang = lang === 'fa' ? 'fa' : 'en';
     document.documentElement.dir  = isRtl ? 'rtl' : 'ltr';
 
-    // Active button
     document.getElementById('btnEn').classList.toggle('active', lang === 'en');
     document.getElementById('btnFa').classList.toggle('active', lang === 'fa');
 
-    // Translate all elements with data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (t[key] !== undefined) el.textContent = t[key];
@@ -130,34 +147,21 @@ document.getElementById('themeToggle').addEventListener('click', () => {
     applyTheme(current === 'dark' ? 'light' : 'dark');
 });
 
-// ─── Sidebar Drawer ───────────────────────────────────────────────
-const sidebar        = document.getElementById('sidebar');
-const mainContent    = document.getElementById('mainContent');
-const overlay        = document.getElementById('sidebarOverlay');
-const menuToggle     = document.getElementById('menuToggle');
-const sidebarClose   = document.getElementById('sidebarClose');
+// ─── Sidebar Drawer (mobile) ──────────────────────────────────────
+const sidebar      = document.getElementById('sidebar');
+const overlay      = document.getElementById('sidebarOverlay');
+const menuToggle   = document.getElementById('menuToggle');
+const sidebarClose = document.getElementById('sidebarClose');
 
-function openSidebar() {
-    sidebar.classList.add('open');
-    overlay.classList.add('visible');
-}
-function closeSidebar() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('visible');
-}
-function toggleSidebar() {
-    if (sidebar.classList.contains('open')) {
-        closeSidebar();
-    } else {
-        openSidebar();
-    }
-}
+function openSidebar()  { sidebar.classList.add('open');    overlay.classList.add('visible'); }
+function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('visible'); }
 
-menuToggle.addEventListener('click', toggleSidebar);
+menuToggle.addEventListener('click', () =>
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar()
+);
 sidebarClose.addEventListener('click', closeSidebar);
 overlay.addEventListener('click', closeSidebar);
 
-// On desktop: sidebar always visible; on mobile: drawer
 function handleResize() {
     if (window.innerWidth >= 992) {
         sidebar.classList.add('open');
@@ -168,7 +172,72 @@ function handleResize() {
 }
 window.addEventListener('resize', handleResize);
 
-// ─── Init on page load ────────────────────────────────────────────
+// ─── Sidebar Collapsible Dropdowns ───────────────────────────────
+// Map page names to their parent dropdown key
+const PAGE_DROPDOWN_MAP = {
+    dashboard: 'content',
+    create:    'content',
+    edit:      'content',
+    settings:  'settings',
+    profile:   'settings',
+};
+
+// PHP injects the current page name so JS can auto-expand the right section
+const CURRENT_PAGE = '<?= addslashes($currentPage ?? '') ?>';
+
+document.querySelectorAll('.nav-dropdown-toggle').forEach(function (btn) {
+    const ddKey    = btn.dataset.dropdown;
+    const dropdown = btn.closest('.nav-dropdown');
+    const storageKey = 'sidebar_dd_' + ddKey;
+
+    // Determine initial state: auto-expand if current page belongs here,
+    // otherwise restore whatever the user last chose.
+    const belongsHere  = PAGE_DROPDOWN_MAP[CURRENT_PAGE] === ddKey;
+    const savedState   = localStorage.getItem(storageKey);
+    const shouldExpand = belongsHere || savedState === 'true';
+
+    if (shouldExpand) {
+        dropdown.classList.add('expanded');
+        localStorage.setItem(storageKey, 'true');
+    }
+
+    // Click handler: toggle and persist
+    btn.addEventListener('click', function () {
+        const expanded = !dropdown.classList.contains('expanded');
+        dropdown.classList.toggle('expanded', expanded);
+        localStorage.setItem(storageKey, expanded ? 'true' : 'false');
+    });
+});
+
+// ─── User / Avatar Dropdown ───────────────────────────────────────
+(function () {
+    const userMenuBtn  = document.getElementById('userMenuBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    if (!userMenuBtn || !userDropdown) return;
+
+    userMenuBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle('open');
+    });
+
+    document.addEventListener('click', function () {
+        userDropdown.classList.remove('open');
+    });
+
+    // Prevent click inside dropdown from closing it
+    userDropdown.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+})();
+
+// ─── Delete confirmation helper ───────────────────────────────────
+function getDeleteConfirm() {
+    const lang = localStorage.getItem('admin_lang') || 'en';
+    const t = i18n[lang] || i18n.en;
+    return t.confirmDelete || 'Are you sure you want to delete this post?';
+}
+
+// ─── Init ─────────────────────────────────────────────────────────
 (function init() {
     const savedTheme = localStorage.getItem('admin_theme') || 'light';
     const savedLang  = localStorage.getItem('admin_lang')  || 'en';

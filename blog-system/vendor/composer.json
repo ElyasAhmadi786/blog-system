@@ -1,0 +1,19 @@
+{
+    "name": "gitmag/blog",
+    "description": "A simple blog system with PHP",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "classes\\": "classes/"
+        }
+    },
+    "require": {
+        "php": ">=7.4"
+    },
+    "authors": [
+        {
+            "name": "Sohrab Azinfar",
+            "email": "sohrab@gitmag.ir"
+        }
+    ]
+}

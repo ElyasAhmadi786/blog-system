@@ -1,0 +1,88 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 800px;
+    margin: 0 auto;
+}
+.clear {
+    clear: both;
+}
+header{
+    background-color: beige;
+    padding: 20px;
+    margin-bottom: 20px;
+    /*width: 100%;*/
+}
+header ul li{
+    display: inline;
+    list-style: none;
+}
+header ul:first-child{
+    float: left;
+}
+header ul:nth-child(2){
+    float: right;
+}
+header a {
+    margin-right: 30px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+}
+header a:hover {
+    color: blue;
+}
+table{
+    width: 100%;
+}
+th , td{
+    border: 1px solid;
+    padding: 3px 8px;
+    text-align: center;
+}
+section{
+    border: 1px solid #cdcdcd;
+    border-radius: 5px;
+    padding: 10px;
+}
+#error{
+    background-color: lightcoral;
+    color: #fff;
+    font-weight: bold;
+    padding: 15px 10px;
+    border-radius: 3px;
+}
+#error ul li{
+    list-style: none;
+}
+form{
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 10px;
+}
+form label{
+    font-size: 18px;
+}
+form input[type="text"],
+form select,
+form textarea,
+form input[type="file"],
+form input[type="submit"] {
+    display: block;
+    width: 100%;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ababab;
+    margin-top: 5px;
+}
+form input[type="submit"]{
+    background-color: beige;
+}
+
+
+

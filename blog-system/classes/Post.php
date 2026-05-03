@@ -14,12 +14,12 @@ class Post
     private PostRepository $postRepository;
 
     public function __construct(
-        ?int $id = null,
+        ?int $id,
         string $title,
         string $content,
         string $category,
-        ?string $image = null,
-        PostRepository $postRepository
+        PostRepository $postRepository,
+        ?string $image = null
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -32,17 +32,22 @@ class Post
 
     public function save(): bool
     {
-        $data = [
-            'title' => $this->title,
-            'content' => $this->content,
-            'category' => $this->category,
-            'image' => $this->image,
-            'views' => $this->views
-        ];
-
         if ($this->id) {
+            $data = [
+                'title' => $this->title,
+                'content' => $this->content,
+                'category' => $this->category,
+                'image' => $this->image,
+            ];
             return $this->postRepository->update($this->id, $data);
         } else {
+            $data = [
+                'title' => $this->title,
+                'content' => $this->content,
+                'category' => $this->category,
+                'image' => $this->image,
+                'views' => $this->views,
+            ];
             return $this->postRepository->store($data);
         }
     }

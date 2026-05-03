@@ -35,7 +35,7 @@ CREATE TABLE posts (
 -- رمز عبور پیش‌فرض با bcrypt هش شده است - پس از نصب حتماً تغییر دهید
 -- برای تولید هش جدید: password_hash('your_new_password', PASSWORD_DEFAULT)
 INSERT INTO users (first_name, last_name, email, password)
-VALUES ('Admin', 'User', 'admin@blog.com', '$2y$10$bVcWC0SGJb9A8vKzObtgTehWjbNiQJNZLfouJA/9vnqKH9xEm3pzu');
+VALUES ('Admin', 'User', 'admin@gmail.com', '$2y$10$m80PScF3eSsoniSmqDGM1.FtZv8HEToFt4yCIupU53qUIZMB6JM2m');
 -- درج تنظیمات
 INSERT INTO settings (
         title,

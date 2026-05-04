@@ -3,22 +3,18 @@ require_once "./includes/auth.php";
 require_once "./autoload.php";
 
 use classes\Repository\PostRepository;
-use classes\Repository\SettingRepository;
+use classes\Repository\UserRepository;
 use classes\StorageTypes\MySQL;
-use classes\Database;
 
 $postRepository = new PostRepository(new MySQL());
+$userRepository = new UserRepository(new MySQL());
 
 // ── Stats ─────────────────────────────────────────────────────────
 $totalPosts   = $postRepository->countAll();
 $totalViews   = $postRepository->sumField('views');
 $publishedCnt = $postRepository->countFiltered('published', null);
 $draftCnt     = $postRepository->countFiltered('draft', null);
-
-// Total users (direct query)
-$_userConn  = Database::getConnection();
-$_uResult   = $_userConn ? $_userConn->query("SELECT COUNT(*) as cnt FROM users") : null;
-$totalUsers = $_uResult ? (int)$_uResult->fetch_assoc()['cnt'] : 0;
+$totalUsers   = $userRepository->countUsers();
 
 // ── Filters ───────────────────────────────────────────────────────
 $page         = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) ?: 1;

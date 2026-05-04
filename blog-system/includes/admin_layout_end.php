@@ -183,7 +183,7 @@ const PAGE_DROPDOWN_MAP = {
 };
 
 // PHP injects the current page name so JS can auto-expand the right section
-const CURRENT_PAGE = '<?= addslashes($currentPage ?? '') ?>';
+const CURRENT_PAGE = <?= json_encode($currentPage ?? '', JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
 
 document.querySelectorAll('.nav-dropdown-toggle').forEach(function (btn) {
     const ddKey    = btn.dataset.dropdown;

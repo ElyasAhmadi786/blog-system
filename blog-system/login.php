@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$conn) {
             $error = 'Database connection failed. Please check your configuration.';
         } else {
-            $stmt = $conn->prepare("SELECT id, first_name, last_name, password FROM users WHERE email = ? LIMIT 1");
+            $stmt = $conn->prepare("SELECT id, first_name, last_name, password, avatar FROM users WHERE email = ? LIMIT 1");
             $stmt->bind_param("s", $email);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['admin_logged_in'] = true;
                     $_SESSION['admin_id']        = $user['id'];
                     $_SESSION['admin_name']      = $user['first_name'] . ' ' . $user['last_name'];
+                    $_SESSION['admin_avatar']    = $user['avatar'];
                     header("Location: panel.php");
                     exit;
                 }

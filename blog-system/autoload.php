@@ -23,6 +23,7 @@ require_once 'classes/StorageTypes/MySQL.php';
 require_once 'classes/StorageTypes/contracts/Storage.php';
 require_once 'classes/Repository/BaseRepository.php';
 require_once 'classes/Repository/PostRepository.php';
+require_once 'classes/Repository/UserRepository.php';
 
 require_once 'classes/Repository/SettingRepository.php';
 require_once 'classes/Post.php';

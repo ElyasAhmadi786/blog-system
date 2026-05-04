@@ -9,6 +9,7 @@ class Post
     private string $title;
     private string $content;
     private string $category;
+    private string $status;
     private ?string $image;
     private int $views;
     private PostRepository $postRepository;
@@ -19,14 +20,16 @@ class Post
         string $content,
         string $category,
         PostRepository $postRepository,
-        ?string $image = null
+        ?string $image = null,
+        string $status = 'published'
     ) {
-        $this->id = $id;
-        $this->title = $title;
-        $this->content = $content;
-        $this->category = $category;
-        $this->image = $image;
-        $this->views = 0;
+        $this->id             = $id;
+        $this->title          = $title;
+        $this->content        = $content;
+        $this->category       = $category;
+        $this->image          = $image;
+        $this->status         = $status;
+        $this->views          = 0;
         $this->postRepository = $postRepository;
     }
 
@@ -34,19 +37,21 @@ class Post
     {
         if ($this->id) {
             $data = [
-                'title' => $this->title,
-                'content' => $this->content,
+                'title'    => $this->title,
+                'content'  => $this->content,
                 'category' => $this->category,
-                'image' => $this->image,
+                'image'    => $this->image,
+                'status'   => $this->status,
             ];
             return $this->postRepository->update($this->id, $data);
         } else {
             $data = [
-                'title' => $this->title,
-                'content' => $this->content,
+                'title'    => $this->title,
+                'content'  => $this->content,
                 'category' => $this->category,
-                'image' => $this->image,
-                'views' => $this->views,
+                'image'    => $this->image,
+                'status'   => $this->status,
+                'views'    => $this->views,
             ];
             return $this->postRepository->store($data);
         }
@@ -91,6 +96,11 @@ class Post
     public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
     }
 
     public function getViews(): int

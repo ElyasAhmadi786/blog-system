@@ -14,6 +14,8 @@ interface Storage
     
     // Utility Methods
     public function getLastInsertId(): int;
+    public function countAll(string $table): int;
+    public function sumField(string $table, string $field): int;
     
     // Transaction Methods
     public function startTransaction(): bool;

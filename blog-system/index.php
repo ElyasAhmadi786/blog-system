@@ -57,9 +57,9 @@ $latestPosts = $postRepository->getAllPaginated(1, 7);
     <main>
         <header>
             <h1><?= $settings['title'] ?? 'Gitmag website' ?></h1>
-            <?php if ($settings['logo']): ?>
+            <?php if (!empty($settings['logo'])): ?>
             <div id="logo">
-                <img src="./assets/images/logo.png" alt="Gitmag">
+                <img src="./assets/images/<?= htmlspecialchars(basename($settings['logo'])) ?>" alt="<?= htmlspecialchars($settings['title'] ?? 'Logo') ?>">
             </div>
             <?php endif; ?>
         </header>

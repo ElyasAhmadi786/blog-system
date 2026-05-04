@@ -52,4 +52,14 @@ class BaseRepository
     {
         return $this->storage->getLastInsertId();
     }
+
+    public function countAll(): int
+    {
+        return $this->storage->countAll($this->tableName);
+    }
+
+    public function sumField(string $field): int
+    {
+        return $this->storage->sumField($this->tableName, $field);
+    }
 }

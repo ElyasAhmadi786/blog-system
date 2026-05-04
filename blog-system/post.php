@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once "./autoload.php";
 
 use classes\Repository\PostRepository;
@@ -8,7 +11,7 @@ use classes\StorageTypes\MySQL;
 $postRepository = new PostRepository(new MySQL());
 $settingRepository = new SettingRepository(new MySQL());
 
-$postId = $_GET['id'] ?? null;
+$postId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
 
 if (!$postId) {
     header("Location: index.php");
@@ -94,9 +97,10 @@ $postRepository->update($postId, ['views' => $post['views'] + 1]);
     <main>
         <header>
             <h1><?= $settings['title'] ?? 'Gitmag website' ?></h1>
-            <?php if ($settings['logo']): ?>
+            <?php if (!empty($settings['logo'])): ?>
                 <div id="logo">
-                    <img src="assets/images/logo.png" alt="Gitmag">
+                    <img src="assets/images/<?= htmlspecialchars(basename($settings['logo'])) ?>"
+                         alt="<?= htmlspecialchars($settings['title'] ?? 'Logo') ?>">
                 </div>
             <?php endif; ?>
         </header>
@@ -142,21 +146,23 @@ $postRepository->update($postId, ['views' => $post['views'] + 1]);
 
                         <?php if ($post['image']): ?>
                             <div class="post-image">
-                                <img src="assets/images/<?= $post['image'] ?>"
+                            <img src="assets/images/<?= htmlspecialchars(basename($post['image'])) ?>"
                                     alt="<?= htmlspecialchars($post['title']) ?>"
                                     onerror="this.src='assets/images/default.jpg'">
                             </div>
                         <?php endif; ?>
 
                         <div class="post-content">
-                            <?= nl2br(htmlspecialchars($post['content'])) ?>
+                            <?= $post['content'] ?>
                         </div>
 
+                        <?php if (!empty($_SESSION['admin_logged_in'])): ?>
                         <div class="admin-actions">
                             <p><strong>Admin Actions:</strong></p>
-                            <a href="./edit.php?id=<?= $post['id'] ?>" class="btn">✏️ Edit This Post</a>
+                            <a href="./edit.php?id=<?= (int)$post['id'] ?>" class="btn">✏️ Edit This Post</a>
                             <a href="./panel.php" class="btn btn-success">📊 Manage All Posts</a>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <div class="clearfix"></div>
                 </article>

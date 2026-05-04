@@ -5,46 +5,48 @@ use classes\Repository\PostRepository;
 use classes\Repository\SettingRepository;
 use classes\StorageTypes\MySQL;
 
-$postRepository = new PostRepository(new MySQL());
+$postRepository    = new PostRepository(new MySQL());
 $settingRepository = new SettingRepository(new MySQL());
 
-$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-$category = $_GET['category'] ?? '';
-$perPage = 10;
-
-if ($category) {
-    $posts = $postRepository->getByCategory($category);
-} else {
-    $posts = $postRepository->getAllPaginated($page, $perPage);
-}
-
+$query    = trim($_GET['search'] ?? '');
+$page     = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$perPage  = 10;
 $settings = $settingRepository->getSettings();
 $topPosts = $postRepository->getTopPosts(7);
+
+// Search across all posts in PHP (dataset is small)
+$results = [];
+if ($query !== '') {
+    $allPosts = $postRepository->getAll();
+    foreach ($allPosts as $post) {
+        if (stripos($post['title'], $query) !== false
+            || stripos(strip_tags($post['content']), $query) !== false) {
+            $results[] = $post;
+        }
+    }
+}
+
+// Paginate results
+$total       = count($results);
+$totalPages  = $perPage > 0 ? (int)ceil($total / $perPage) : 1;
+$page        = max(1, min($page, max(1, $totalPages)));
+$paginated   = array_slice($results, ($page - 1) * $perPage, $perPage);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - <?= htmlspecialchars($settings['title'] ?? 'Gitmag website') ?></title>
+    <title>Search Results - <?= htmlspecialchars($settings['title'] ?? 'Gitmag website') ?></title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <style>
-        .category-filter {
-            margin: 20px 0;
-            text-align: center;
+        .search-header {
+            margin-bottom: 20px;
         }
-        .category-filter a {
-            display: inline-block;
-            padding: 8px 16px;
-            margin: 0 5px;
-            background: #f0f0f0;
-            color: #333;
-            text-decoration: none;
-            border-radius: 20px;
-        }
-        .category-filter a.active {
-            background: #f38b8b;
-            color: white;
+        .search-count {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
         }
         .pagination {
             text-align: center;
@@ -58,6 +60,9 @@ $topPosts = $postRepository->getTopPosts(7);
             color: white;
             text-decoration: none;
             border-radius: 4px;
+        }
+        .pagination a:hover {
+            background: #e07b7b;
         }
         .admin-login {
             float: right;
@@ -94,7 +99,7 @@ $topPosts = $postRepository->getTopPosts(7);
             </div>
             <form action="search.php" method="GET">
                 <input type="text" name="search" placeholder="Search your word"
-                       value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                       value="<?= htmlspecialchars($query) ?>">
                 <input type="submit" value="Search">
             </form>
         </nav>
@@ -108,31 +113,22 @@ $topPosts = $postRepository->getTopPosts(7);
                         <?php endforeach; ?>
                     </ul>
                 </div>
-
-                <div class="aside-box">
-                    <h2>Categories</h2>
-                    <ul>
-                        <li><a href="blog.php?category=political" class="<?= $category === 'political' ? 'active' : '' ?>">Political</a></li>
-                        <li><a href="blog.php?category=sport" class="<?= $category === 'sport' ? 'active' : '' ?>">Sport</a></li>
-                        <li><a href="blog.php?category=social" class="<?= $category === 'social' ? 'active' : '' ?>">Social</a></li>
-                        <li><a href="blog.php">All Categories</a></li>
-                    </ul>
-                </div>
             </aside>
             <div id="articles">
-                <div class="category-filter">
-                    <a href="blog.php" class="<?= !$category ? 'active' : '' ?>">All Posts</a>
-                    <a href="blog.php?category=political" class="<?= $category === 'political' ? 'active' : '' ?>">Political</a>
-                    <a href="blog.php?category=sport" class="<?= $category === 'sport' ? 'active' : '' ?>">Sport</a>
-                    <a href="blog.php?category=social" class="<?= $category === 'social' ? 'active' : '' ?>">Social</a>
+                <div class="search-header">
+                    <h2>Search Results</h2>
+                    <?php if ($query !== ''): ?>
+                        <p class="search-count">
+                            <?= $total ?> result<?= $total !== 1 ? 's' : '' ?> for
+                            "<strong><?= htmlspecialchars($query) ?></strong>"
+                        </p>
+                    <?php else: ?>
+                        <p class="search-count">Please enter a search term.</p>
+                    <?php endif; ?>
                 </div>
 
-                <h1 style="margin-bottom: 20px;">
-                    <?= $category ? htmlspecialchars(ucfirst($category)) . ' Posts' : 'All Blog Posts' ?>
-                </h1>
-
-                <?php if (!empty($posts)): ?>
-                    <?php foreach ($posts as $post): ?>
+                <?php if (!empty($paginated)): ?>
+                    <?php foreach ($paginated as $post): ?>
                     <article>
                         <div class="caption">
                             <h3><?= htmlspecialchars($post['title']) ?></h3>
@@ -155,22 +151,23 @@ $topPosts = $postRepository->getTopPosts(7);
                     </article>
                     <?php endforeach; ?>
 
-                    <?php if (!$category): ?>
+                    <?php if ($totalPages > 1): ?>
                     <div class="pagination">
                         <?php if ($page > 1): ?>
-                            <a href="?page=<?= $page - 1 ?>">← Previous</a>
+                            <a href="?search=<?= urlencode($query) ?>&page=<?= $page - 1 ?>">← Previous</a>
                         <?php endif; ?>
-                        <span>Page <?= $page ?></span>
-                        <?php if (count($posts) === $perPage): ?>
-                            <a href="?page=<?= $page + 1 ?>">Next →</a>
+                        <span>Page <?= $page ?> of <?= $totalPages ?></span>
+                        <?php if ($page < $totalPages): ?>
+                            <a href="?search=<?= urlencode($query) ?>&page=<?= $page + 1 ?>">Next →</a>
                         <?php endif; ?>
                     </div>
                     <?php endif; ?>
-                <?php else: ?>
+
+                <?php elseif ($query !== ''): ?>
                     <article>
                         <div class="caption">
-                            <h3>No Posts Found</h3>
-                            <p>There are no blog posts in this category at the moment.</p>
+                            <h3>No Results Found</h3>
+                            <p>No posts match your search for "<?= htmlspecialchars($query) ?>". Try different keywords.</p>
                         </div>
                     </article>
                 <?php endif; ?>

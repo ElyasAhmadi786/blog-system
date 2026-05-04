@@ -87,9 +87,10 @@ $postsWithImages = array_filter($posts, function($post) {
     <main>
         <header>
             <h1><?= $settings['title'] ?? 'Gitmag website' ?></h1>
-            <?php if ($settings['logo']): ?>
+            <?php if (!empty($settings['logo'])): ?>
             <div id="logo">
-                <img src="./assets/images/logo.png" alt="Gitmag">
+                <img src="./assets/images/<?= htmlspecialchars(basename($settings['logo'])) ?>"
+                     alt="<?= htmlspecialchars($settings['title'] ?? 'Logo') ?>">
             </div>
             <?php endif; ?>
         </header>
@@ -102,10 +103,11 @@ $postsWithImages = array_filter($posts, function($post) {
                 <li><a href="./contact.php">Contact us</a></li>
             </ul>
             <div class="admin-login">
-                <a href="./edit.php">Admin Panel</a>
+                <a href="./login.php">Admin Panel</a>
             </div>
             <form action="search.php" method="GET">
-                <input type="text" name="search" placeholder="Search your word">
+                <input type="text" name="search" placeholder="Search your word"
+                       value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
                 <input type="submit" value="Search">
             </form>
         </nav>
@@ -130,17 +132,17 @@ $postsWithImages = array_filter($posts, function($post) {
                             <div class="gallery-container">
                                 <?php foreach ($postsWithImages as $post): ?>
                                 <div class="gallery-item">
-                                    <img src="./assets/images/<?= $post['image'] ?>" 
+                                    <img src="./assets/images/<?= htmlspecialchars(basename($post['image'])) ?>" 
                                          alt="<?= htmlspecialchars($post['title']) ?>" 
                                          onerror="this.src='./assets/images/default.jpg'">
                                     <div class="gallery-content">
                                         <h3><?= htmlspecialchars($post['title']) ?></h3>
-                                        <p><?= substr(strip_tags($post['content']), 0, 100) ?>...</p>
+                                        <p><?= htmlspecialchars(substr(strip_tags($post['content']), 0, 100)) ?>...</p>
                                         <div class="gallery-meta">
-                                            <span>👁️ <?= $post['views'] ?> views</span>
-                                            <span>🏷️ <?= ucfirst($post['category']) ?></span>
+                                            <span>👁️ <?= (int)$post['views'] ?> views</span>
+                                            <span>🏷️ <?= htmlspecialchars(ucfirst($post['category'])) ?></span>
                                         </div>
-                                        <a href="post.php?id=<?= $post['id'] ?>" class="view-post">Read Post</a>
+                                        <a href="post.php?id=<?= (int)$post['id'] ?>" class="view-post">Read Post</a>
                                     </div>
                                 </div>
                                 <?php endforeach; ?>

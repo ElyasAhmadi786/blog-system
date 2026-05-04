@@ -135,9 +135,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main>
         <header>
             <h1><?= $settings['title'] ?? 'Gitmag website' ?></h1>
-            <?php if ($settings['logo']): ?>
+            <?php if (!empty($settings['logo'])): ?>
                 <div id="logo">
-                    <img src="./assets/images/logo.png" alt="Gitmag">
+                    <img src="./assets/images/<?= htmlspecialchars(basename($settings['logo'])) ?>"
+                         alt="<?= htmlspecialchars($settings['title'] ?? 'Logo') ?>">
                 </div>
             <?php endif; ?>
         </header>
@@ -150,10 +151,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li><a href="./contact.php">Contact us</a></li>
             </ul>
             <div class="admin-login">
-                <a href="./edit.php">Admin Panel</a>
+                <a href="./login.php">Admin Panel</a>
             </div>
             <form action="search.php" method="GET">
-                <input type="text" name="search" placeholder="Search your word">
+                <input type="text" name="search" placeholder="Search your word"
+                       value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
                 <input type="submit" value="Search">
             </form>
         </nav>
@@ -182,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <?php if ($error): ?>
                             <div class="error-message">
-                                ❌ <?= $error ?>
+                                ❌ <?= htmlspecialchars($error) ?>
                             </div>
                         <?php endif; ?>
 
